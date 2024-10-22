@@ -36,6 +36,8 @@ globals:
     restore_value: no
     initial_value: '0'
 
+    
+
 esphome:
   name: "${devicename}"
   comment: "${description}"
