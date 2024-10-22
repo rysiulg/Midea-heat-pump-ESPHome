@@ -28,8 +28,8 @@ jobs:
         run: |
           git config --local user.email "rysiulg@gmail.com"
           git config --local user.name "rysiulg"
-          git add config.yaml
-          git commit -m "Update version to $(python -c 'import yaml; print(yaml.safe_load(open(\"config.yaml\"))[\"entity\"][\"version\"]))')"
+          git add heatpump.yaml
+          git commit -m "Update version to $(python -c 'import yaml; print(yaml.safe_load(open(\"heatpump.yaml\"))[\"esphome\"][\"version\"]))')"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
