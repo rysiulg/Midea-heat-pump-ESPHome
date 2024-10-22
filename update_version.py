@@ -1,8 +1,8 @@
 import re
 import yaml
 
-# Read the latest version from changelog.md
-with open('changelog.md', 'r') as f:
+# Read the latest version from CHANGELOG.md
+with open('CHANGELOG.md', 'r') as f:
     changelog = f.read()
     version_match = re.search(r'\[([0-9]+\.[0-9]+\.[0-9]+)\]', changelog)
     if version_match:
@@ -21,4 +21,4 @@ with open('changelog.md', 'r') as f:
 
         print(f'Updated version to {new_version} in heatpump.yaml')
     else:
-        print('No version found in changelog.md')
+        print('No version found in CHANGELOG.md')
