@@ -30,6 +30,6 @@ jobs:
           git config --local user.name "rysiulg"
           git add heatpump.yaml
           git commit -m "Update version to $(python -c 'import yaml; print(yaml.safe_load(open(\"heatpump.yaml\")[\"esphome\"][\"project\"][\"version\"]))')"
-          git push
+          git push origin HEAD:rysiulg-patch-1  # Change "main" to your default branch if different
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
