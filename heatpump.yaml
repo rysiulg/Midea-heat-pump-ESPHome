@@ -1,4 +1,4 @@
-api: null
+
 binary_sensor:
 - address: 0
   bitmask: 16
