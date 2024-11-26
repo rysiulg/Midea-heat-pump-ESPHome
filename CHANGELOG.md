@@ -5,10 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [Unreleased] - 2024-11-24
 ### Changed:
 - Update to react after move slider day at night and day -delay depends on modbus updates
 - Update to change t1s for day and night only whet Heat mode is active and optimizing interval 15min
+- Add COP - heat pump efficiency factor
+  Be aware that the energy metering is not acurate at all, therefor do not trust the COP from this sensor
+- Update registers
+    2: min/max value with verifing depending emmision type settings
+    3: min/max value range
+    4: min/max value range
+   103: convert valve open position to percent representation
+   101: moved to text sensor with status
+   200: moved to text sensor with home appliance decode value code to text names
+   211: completely configurable except reserved values
+   210: completely configurable except reserved values
+  Built-in web frontend change from CSS v2 to v3 
 
 ## [4.1.2aY] - 2024-11-13
 ### Changed:
