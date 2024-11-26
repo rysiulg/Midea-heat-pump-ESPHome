@@ -5,7 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2024-11-24
+## [Unreleased]
+### Changed:
+- 
+## [5.0.0Y] - 2024-11-26 - 2024-11-24
 ### Changed:
 - Update to react after move slider day at night and day -delay depends on modbus updates
 - Update to change t1s for day and night only whet Heat mode is active and optimizing interval 15min
