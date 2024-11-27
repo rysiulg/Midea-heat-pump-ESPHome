@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed:
+- 
+## [5.0.0aY] - 2024-11-27
+### Changed:
 - Removed duplicated Register 4 definitions -removed from sensor area
 - 
 ## [5.0.0Y] - 2024-11-26 - 2024-11-24
