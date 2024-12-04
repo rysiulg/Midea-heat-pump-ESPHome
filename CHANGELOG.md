@@ -7,11 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed:
+- Add switch for enable heatpump only on low Electricity Cost (defined as variable in global H=high cost, L=low cost in Polish G12 tariff)
 - 
 ## [5.0.0aY] - 2024-11-27
 ### Changed:
 - Removed duplicated Register 4 definitions -removed from sensor area
-- 
+  
 ## [5.0.0Y] - 2024-11-26 - 2024-11-24
 ### Changed:
 - Update to react after move slider day at night and day -delay depends on modbus updates
