@@ -8,7 +8,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed:
 - Add switch for enable heatpump only on low Electricity Cost (defined as variable in global H=high cost, L=low cost in Polish G12 tariff)
-- 
+
+## [6.0.1] - 2025-04-20
+
+### Changed
+
+- Update version in heatpump.yaml which was forgotten to change in release 6.0.0
+
+## [6.0.0] - 2025-04-20
+
+### Changed
+
+- Register 3 has been changed from type `sensor` to `number` to make them configurable.
+- Updated several entities with `device_class` and `state_class` options, for better compatibility in Home Assistant sensors.
+
+### Added
+
+- Introduced a `binary_sensor` to detect when the compressor is running based on operating frequency > 0.
+  - Counted compressor start events by monitoring transitions from OFF → ON.
+- Added a `template sensor` to expose the number of starts per hour (`starts/h`).
+  - Automatically resets the counter every hour.
+  - 
+
 ## [5.0.0aY] - 2024-11-27
 ### Changed:
 - Removed duplicated Register 4 definitions -removed from sensor area
@@ -30,6 +51,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    210: completely configurable except reserved values
   Built-in web frontend change from CSS v2 to v3 
 
+## [5.0.0] - 2024-11-24
+
+### Changed
+
+- Add COP - heat pump efficiency factor
+  - Be aware that the energy metering is not acurate at all, therefor do not trust the COP from this sensor
+- Update registers
+  - 2: min/max value with verifing depending emmision type settings
+  - 3: min/max value range
+  - 4: min/max value range
+  - 103: convert valve open position to percent representation
+  - 101: moved to text sensor with status
+  - 200: moved to text sensor with home appliance decode value code to text names
+  - 211: completely configurable except reserved values
+  - 210: completely configurable except reserved values
+- Built-in web frontend change from CSS v2 to v3
+- 
 ## [4.1.2aY] - 2024-11-13
 ### Changed:
 - Added 2 new number sensor: temp to heat at day and night -useful when using buffer not heating directly -the curve doesn't work well in that case
