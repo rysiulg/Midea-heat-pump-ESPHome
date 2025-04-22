@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed:
+- 
+## [6.0.1a] - 2025-04-22
+### Changed:
 - Add switch for enable heatpump only on low Electricity Cost (defined as variable in global H=high cost, L=low cost in Polish G12 tariff)
 
 ## [6.0.1] - 2025-04-20
