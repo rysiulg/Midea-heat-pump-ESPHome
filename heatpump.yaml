@@ -66,6 +66,22 @@ globals:
     type: uint16_t
     restore_value: no
     initial_value: '0'
+  - id: unmasked_value_register_273
+    type: uint16_t
+    restore_value: no
+    initial_value: '0'
+  - id: unmasked_value_register_274
+    type: uint16_t
+    restore_value: no
+    initial_value: '0'
+  - id: unmasked_value_register_277
+    type: uint16_t
+    restore_value: no
+    initial_value: '0'
+  - id: unmasked_value_register_278
+    type: uint16_t
+    restore_value: no
+    initial_value: '0'
   - id: manually_disabled_dhw_heating_timestamp
     type: int32_t
     restore_value: true
@@ -158,7 +174,7 @@ esphome:
 esp32:
   board: wemos_d1_mini32
   framework:
-    type: esp-idf #arduino
+    type: esp-idf
     # version: 5.4.1
     # version: recommended
     # Custom sdkconfig options
@@ -357,7 +373,7 @@ select:
   # Register: 269, default: 0
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
-    name: "Power Input Limitation to"
+    name: "Power Input Limitation To"
     id: "${devicename}_power_input_limitation_type"
     icon: mdi:state-machine
     address: 0x10d
@@ -548,6 +564,7 @@ select:
       esphome::modbus_controller::ModbusCommandItem set_payload_command = esphome::modbus_controller::ModbusCommandItem::create_write_single_command(${devicename}, 0x110, new_value);
       ${devicename}->queue_command(set_payload_command);
       return {};
+
 ################################################################################################################################
 sensor:
   ##############REMOTE SENSORS#############################################
@@ -728,7 +745,7 @@ sensor:
     accuracy_decimals: 0
     update_interval: 10s
     lambda: |-
-      return id(compressor_start_day_count);      
+      return id(compressor_start_day_count);
     
   ############# YORK #############
   - platform: template
@@ -823,7 +840,7 @@ sensor:
     value_type: U_WORD
     unit_of_measurement: "%"
     filters: 
-    - calibrate_linear:  
+    - calibrate_linear:
       # York, MIDEA have movement 0-480
       - 0 -> 0.0
       - 480 -> 100.0
@@ -839,6 +856,10 @@ sensor:
     unit_of_measurement: "°C"
     device_class: "temperature"
     state_class: "measurement"
+    filters:
+      - lambda: |-
+          if (x < -200 || x > 200) return {};
+          return x;
   # Register: 105
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -850,7 +871,11 @@ sensor:
     value_type: S_WORD
     unit_of_measurement: "°C"
     device_class: "temperature"
-    state_class: "measurement"    
+    state_class: "measurement"
+    filters:
+      - lambda: |-
+          if (x < -200 || x > 200) return {};
+          return x;
   # Register: 106
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -863,6 +888,10 @@ sensor:
     unit_of_measurement: "°C"
     device_class: "temperature"
     state_class: "measurement"
+    filters:
+      - lambda: |-
+          if (x < -200 || x > 200) return {};
+          return x;
   # Register: 107
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -875,6 +904,10 @@ sensor:
     device_class: "temperature"
     state_class: "measurement"    
     value_type: S_WORD
+    filters:
+      - lambda: |-
+          if (x < -100 || x > 100) return {};
+          return x;
     on_value: 
       then: 
         lambda: |-
@@ -892,6 +925,10 @@ sensor:
     unit_of_measurement: "°C"
     device_class: "temperature"
     state_class: "measurement"
+    filters:
+      - lambda: |-
+          if (x < -200 || x > 200) return {};
+          return x;
   # Register: 109
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -904,6 +941,10 @@ sensor:
     unit_of_measurement: "°C"
     device_class: "temperature"
     state_class: "measurement"
+    filters:
+      - lambda: |-
+          if (x < -200 || x > 200) return {};
+          return x;
   # Register: 110
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -916,6 +957,10 @@ sensor:
     unit_of_measurement: "°C"
     device_class: "temperature"
     state_class: "measurement"
+    filters:
+      - lambda: |-
+          if (x < -200 || x > 200) return {};
+          return x;
   # Register: 111
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -928,6 +973,10 @@ sensor:
     unit_of_measurement: "°C"
     device_class: "temperature"
     state_class: "measurement"
+    filters:
+      - lambda: |-
+          if (x < -200 || x > 200) return {};
+          return x;
   # Register: 112
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -940,6 +989,10 @@ sensor:
     unit_of_measurement: "°C"
     device_class: "temperature"
     state_class: "measurement"
+    filters:
+      - lambda: |-
+          if (x < -200 || x > 200) return {};
+          return x;
   # Register: 113
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -952,6 +1005,10 @@ sensor:
     unit_of_measurement: "°C"
     device_class: "temperature"
     state_class: "measurement"
+    filters:
+      - lambda: |-
+          if (x < -200 || x > 200) return {};
+          return x;
   # Register: 114
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -964,6 +1021,10 @@ sensor:
     unit_of_measurement: "°C"
     device_class: "temperature"
     state_class: "measurement"
+    filters:
+      - lambda: |-
+          if (x < -200 || x > 200) return {};
+          return x;
   # Register: 115
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -976,6 +1037,10 @@ sensor:
     device_class: "temperature"
     state_class: "measurement"
     value_type: S_WORD
+    filters:
+      - lambda: |-
+          if (x < -200 || x > 200) return {};
+          return x;
     on_value_range:
       - below: !lambda "return float(id(${devicename}_gl_dhw_minimal_temp).state);"
         then:
@@ -994,6 +1059,10 @@ sensor:
     unit_of_measurement: kPa
     device_class: "pressure"
     state_class: "measurement"
+    filters:
+      - lambda: |-
+          if (x < -10000 || x > 10000) return {};
+          return x;
   # Register: 117
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -1006,6 +1075,10 @@ sensor:
     unit_of_measurement: kPa
     device_class: "pressure"
     state_class: "measurement"
+    filters:
+      - lambda: |-
+          if (x < -10000 || x > 10000) return {};
+          return x;
   # Register: 118
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -1018,6 +1091,10 @@ sensor:
     unit_of_measurement: A
     device_class: "current"
     state_class: "measurement"
+    filters:
+      - lambda: |-
+          if (x < 0 || x > 200) return {};
+          return x;
   # Register: 119
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -1030,6 +1107,10 @@ sensor:
     unit_of_measurement: V
     device_class: "voltage"
     state_class: "measurement"
+    filters:
+      - lambda: |-
+          if (x < 0 || x > 10000) return {};
+          return x;
   # Register: 120
   # Midea: Tbt1
   - platform: modbus_controller
@@ -1043,6 +1124,10 @@ sensor:
     register_type: holding
     address: 0x78
     value_type: U_WORD
+    filters:
+      - lambda: |-
+          if (x < 0 || x > 200) return {};
+          return x;
     # lambda: |-
     #     if (x > id(${devicename}_set_water_temperature_t1s_zone_1).state) {
     #       id(${devicename}_power_heat_cool_control_zone1).turn_off();
@@ -1062,6 +1147,10 @@ sensor:
     register_type: holding
     address: 0x79
     value_type: U_WORD
+    filters:
+      - lambda: |-
+          if (x < 0 || x > 200) return {};
+          return x;
   # Register: 122
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -1190,6 +1279,10 @@ sensor:
     device_class: "temperature"
     state_class: "measurement"
     value_type: S_WORD
+    filters:
+      - lambda: |-
+          if (x < 0 || x > 200) return {};
+          return x;
   # Register: 136
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -1202,6 +1295,10 @@ sensor:
     unit_of_measurement: "°C"
     device_class: "temperature"
     state_class: "measurement"
+    filters:
+      - lambda: |-
+          if (x < -200 || x > 200) return {};
+          return x;
   # Register: 137
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -1214,6 +1311,10 @@ sensor:
     unit_of_measurement: "°C"
     device_class: "temperature"
     state_class: "measurement"
+    filters:
+      - lambda: |-
+          if (x < -200 || x > 200) return {};
+          return x;
   # Register: 138
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -1275,6 +1376,9 @@ sensor:
     state_class: total_increasing
     address: 0x8f
     value_type: U_DWORD
+    filters:
+      - lambda: return x * 0.01;
+    accuracy_decimals: 2
   # Register: 145 and 146
   # U_DWORD combines this register with the next one
   - platform: modbus_controller
@@ -1288,6 +1392,12 @@ sensor:
     state_class: total_increasing
     address: 0x91
     value_type: U_DWORD
+    filters:
+      - lambda: return x * 0.01;
+      - lambda: |-
+          if (x > 6000000) return {};
+          return x;
+    accuracy_decimals: 2
 
   # The following register address 200-208 can only use 03H (Read register) function code.
   # Register address 209 and after can use 03H, 06H (write single register), 10H (write multiple register).
@@ -1565,7 +1675,21 @@ sensor:
       int dt1s5 = id(${devicename}_dt1s5).state;
       int t5 = id(${devicename}_water_tank_temperature_t5).state;
       int t1s_dhw = t5 + dt1s5;
+      if (t1s_dhw < -200 || t1s_dhw > 200) return {};
       return t1s_dhw;
+  - platform: template
+    name: "Water Temperature Delta"
+    id: "${devicename}_water_temperature_delta"
+    icon: mdi:thermometer
+    unit_of_measurement: "°C"
+    device_class: "temperature"
+    state_class: "measurement"
+    lambda: |-
+      int inlet = id(${devicename}_water_inlet_temperature).state;
+      int outlet = id(${devicename}_water_outlet_temperature).state;
+      int delta = outlet - inlet;
+      if (delta < -200 || delta > 200) return {};
+      return delta;
   - platform: template
     name: "Active State Map"
     id: "${devicename}_active_state_map"
@@ -1646,6 +1770,137 @@ binary_sensor:
       }
       return true;
   ################################### YORK ###########################
+#Added 202511
+  - platform: modbus_controller
+    modbus_controller_id: "${devicename}"
+    name: "Status TBH Enabled"
+    id: "${devicename}_status_tbh_enabled"
+    register_type: holding
+    address: 0xC6
+    bitmask: 0x8000    # BIT15
+    entity_category: diagnostic
+  - platform: modbus_controller
+    modbus_controller_id: "${devicename}"
+    name: "Status AHS Enabled"
+    id: "${devicename}_status_ahs_enabled"
+    register_type: holding
+    address: 0xC6
+    bitmask: 0x4000    # BIT14
+    entity_category: diagnostic
+  # - platform: modbus_controller
+  #   modbus_controller_id: "${devicename}"
+  #   name: "Status Reserved BIT 13"
+  #   id: "${devicename}_status_reserved_bit_13"
+  #   register_type: holding
+  #   address: 0xC6
+  #   bitmask: 0x2000    # BIT13
+  #   entity_category: diagnostic
+  - platform: modbus_controller
+    modbus_controller_id: "${devicename}"
+    name: "Status T1B Enabled"
+    id: "${devicename}_status_t1b_enabled"
+    register_type: holding
+    address: 0xC6
+    bitmask: 0x1000    # BIT12
+    entity_category: diagnostic
+  - platform: modbus_controller
+    modbus_controller_id: "${devicename}"
+    name: "Status AHS Mode"
+    id: "${devicename}_status_ahs_mode"
+    register_type: holding
+    address: 0xC6
+    bitmask: 0x0800    # BIT11
+    entity_category: diagnostic
+  - platform: modbus_controller
+    modbus_controller_id: "${devicename}"
+    name: "Status IBH Enabled"
+    id: "${devicename}_status_ibh_enabled"
+    register_type: holding
+    address: 0xC6
+    bitmask: 0x0400    # BIT10
+    entity_category: diagnostic
+  - platform: modbus_controller
+    modbus_controller_id: "${devicename}"
+    name: "Status T1 Enabled"
+    id: "${devicename}_status_t1_enabled"
+    register_type: holding
+    address: 0xC6
+    bitmask: 0x0200    # BIT9
+    entity_category: diagnostic
+  - platform: modbus_controller
+    modbus_controller_id: "${devicename}"
+    name: "Status Energy Metering Enabled"
+    id: "${devicename}_status_energy_metering_enabled"
+    register_type: holding
+    address: 0xC6
+    bitmask: 0x0100    # BIT8
+    entity_category: diagnostic
+  # - platform: modbus_controller
+  #   modbus_controller_id: "${devicename}"
+  #   name: "Status Reserved BIT 7"
+  #   id: "${devicename}_status_reserved_bit_7"
+  #   register_type: holding
+  #   address: 0xC6
+  #   bitmask: 0x0080    # BIT7
+  #   entity_category: diagnostic
+  # - platform: modbus_controller
+  #   modbus_controller_id: "${devicename}"
+  #   name: "Status Reserved BIT 6"
+  #   id: "${devicename}_status_reserved_bit_6"
+  #   register_type: holding
+  #   address: 0xC6
+  #   bitmask: 0x0040    # BIT6
+  #   entity_category: diagnostic
+  - platform: modbus_controller
+    modbus_controller_id: "${devicename}"
+    name: "Status DHW Operation"
+    id: "${devicename}_status_dhw_operation"
+    register_type: holding
+    address: 0xC6
+    bitmask: 0x0020    # BIT5
+    entity_category: diagnostic
+  - platform: modbus_controller
+    modbus_controller_id: "${devicename}"
+    name: "Status Heating Operation"
+    id: "${devicename}_status_heating_operation"
+    register_type: holding
+    address: 0xC6
+    bitmask: 0x0010    # BIT4
+    entity_category: diagnostic
+  - platform: modbus_controller
+    modbus_controller_id: "${devicename}"
+    name: "Status Cooling Operation"
+    id: "${devicename}_status_cooling_operation"
+    register_type: holding
+    address: 0xC6
+    bitmask: 0x0008    # BIT3
+    entity_category: diagnostic
+  # - platform: modbus_controller
+  #   modbus_controller_id: "${devicename}"
+  #   name: "Status Reserved BIT 2"
+  #   id: "${devicename}_status_reserved_bit_2"
+  #   register_type: holding
+  #   address: 0xC6
+  #   bitmask: 0x0004    # BIT2
+  #   entity_category: diagnostic
+  # - platform: modbus_controller
+  #   modbus_controller_id: "${devicename}"
+  #   name: "Status Reserved BIT 1"
+  #   id: "${devicename}_status_reserved_bit_1"
+  #   register_type: holding
+  #   address: 0xC6
+  #   bitmask: 0x0002    # BIT1
+  #   entity_category: diagnostic
+  # - platform: modbus_controller
+  #   modbus_controller_id: "${devicename}"
+  #   name: "Status Reserved BIT 0"
+  #   id: "${devicename}_status_reserved_bit_0"
+  #   register_type: holding
+  #   address: 0xC6
+  #   bitmask: 0x0001    # BIT0
+  #   entity_category: diagnostic
+  #Added 202511
+
   # Register: 0 -> Is also read as 'sensor' to read the complete value, used for the templated 'switch'(es)
   # Bit: 0 -> Is present in this config as a 'switch'
   # Bit: 1 -> Is present in this config as a 'switch'
@@ -2319,6 +2574,8 @@ binary_sensor:
       } else {
           return false;
       }
+  
+
 
 switch:
   #######################SECURE ANTIFREEZE##############################
@@ -2397,7 +2654,6 @@ switch:
     optimistic : true
     lambda: "return (id(unmasked_value_register_0) & 0x1) == 0x1;"
     on_turn_on:
-      #- logger.log: "Switch Turned On!"
       - lambda: |-
           uint16_t checked_bit = 0x1;
           uint16_t new_value = id(unmasked_value_register_0);  // The original unmasked value
@@ -2411,7 +2667,6 @@ switch:
             ${devicename}->queue_command(set_payload_command);
           }
     on_turn_off:
-      #- logger.log: "Switch Turned Off!"    
       - lambda: |-
           uint16_t checked_bit = 0x1;
           uint16_t new_value = id(unmasked_value_register_0);  // The original unmasked value
@@ -3812,9 +4067,9 @@ number:
     write_lambda: |-
       uint16_t value = id(unmasked_value_water_temperature_t1s); // The original unmasked value
       uint8_t value_byte = x;                                  // New byte value with the new temp for zone 1
-      auto operation_state = id(${devicename}_operational_mode).state;
-      auto end_heating_unit = id(${devicename}_zone_1_end_heating_mode_emission_type).state;
-      auto end_cooling_unit = id(${devicename}_zone_1_end_cooling_mode_emission_type).state;
+      auto operation_state = id(${devicename}_operational_mode).current_option();
+      auto end_heating_unit = id(${devicename}_zone_1_end_heating_mode_emission_type).current_option();
+      auto end_cooling_unit = id(${devicename}_zone_1_end_cooling_mode_emission_type).current_option();
       if (operation_state == "Cool") {
         if (x < 5 and end_cooling_unit == "Fan Coil Unit") value_byte = 5;
         if (x < 18 and end_cooling_unit != "Fan Coil Unit") value_byte = 18;
@@ -3865,9 +4120,9 @@ number:
       uint16_t value = id(unmasked_value_water_temperature_t1s); // The original unmasked value
       uint8_t value_byte = x;                                  // New byte value with the new temp for zone 2
       // Apply minmax for standard temp
-      auto operation_state = id(${devicename}_operational_mode).state;
-      auto end_heating_unit = id(${devicename}_zone_2_end_heating_mode_emission_type).state;
-      auto end_cooling_unit = id(${devicename}_zone_2_end_cooling_mode_emission_type).state;
+      auto operation_state = id(${devicename}_operational_mode).current_option();
+      auto end_heating_unit = id(${devicename}_zone_2_end_heating_mode_emission_type).current_option();
+      auto end_cooling_unit = id(${devicename}_zone_2_end_cooling_mode_emission_type).current_option();
       if (operation_state == "Cool") {
         if (x < 5 and end_cooling_unit == "Fan Coil Unit") value_byte = 5;
         if (x < 18 and end_cooling_unit != "Fan Coil Unit") value_byte = 18;
@@ -4026,9 +4281,9 @@ number:
     # web_server_sorting_weight: 5
     lambda: |-
         float value = x;
-        auto operation_state = id(${devicename}_operational_mode).state;
-        auto end_heating_unit = id(${devicename}_zone_1_end_heating_mode_emission_type).state;
-        auto end_cooling_unit = id(${devicename}_zone_1_end_cooling_mode_emission_type).state;
+        auto operation_state = id(${devicename}_operational_mode).current_option();
+        auto end_heating_unit = id(${devicename}_zone_1_end_heating_mode_emission_type).current_option();
+        auto end_cooling_unit = id(${devicename}_zone_1_end_cooling_mode_emission_type).current_option();
         if (operation_state == "Cool") {
           if (x < 5 and end_cooling_unit == "Fan Coil Unit") value = 5;
           if (x < 18 and end_cooling_unit != "Fan Coil Unit") value = 18;
@@ -4043,9 +4298,9 @@ number:
     write_lambda: |-
         //return{}; //maybe this duplicate write?
         uint16_t value = x;
-        auto operation_state = id(${devicename}_operational_mode).state;
-        auto end_heating_unit = id(${devicename}_zone_1_end_heating_mode_emission_type).state;
-        auto end_cooling_unit = id(${devicename}_zone_1_end_cooling_mode_emission_type).state;
+        auto operation_state = id(${devicename}_operational_mode).current_option();
+        auto end_heating_unit = id(${devicename}_zone_1_end_heating_mode_emission_type).current_option();
+        auto end_cooling_unit = id(${devicename}_zone_1_end_cooling_mode_emission_type).current_option();
         if (operation_state == "Cool") {
           if (x < 5 and end_cooling_unit == "Fan Coil Unit") value = 5;
           if (x < 18 and end_cooling_unit != "Fan Coil Unit") value = 18;
@@ -4078,9 +4333,9 @@ number:
     # web_server_sorting_weight: 5
     lambda: |-
         float value = x;
-        auto operation_state = id(${devicename}_operational_mode).state;
-        auto end_heating_unit = id(${devicename}_zone_2_end_heating_mode_emission_type).state;
-        auto end_cooling_unit = id(${devicename}_zone_2_end_cooling_mode_emission_type).state;
+        auto operation_state = id(${devicename}_operational_mode).current_option();
+        auto end_heating_unit = id(${devicename}_zone_2_end_heating_mode_emission_type).current_option();
+        auto end_cooling_unit = id(${devicename}_zone_2_end_cooling_mode_emission_type).current_option();
         if (operation_state == "Cool") {
           if (x < 5 and end_cooling_unit == "Fan Coil Unit") value = 5;
           if (x < 18 and end_cooling_unit != "Fan Coil Unit") value = 18;
@@ -4095,9 +4350,9 @@ number:
     write_lambda: |-
       //return{}; //maybe this duplicate write?
       uint16_t value = x;
-      auto operation_state = id(${devicename}_operational_mode).state;
-      auto end_heating_unit = id(${devicename}_zone_2_end_heating_mode_emission_type).state;
-      auto end_cooling_unit = id(${devicename}_zone_2_end_cooling_mode_emission_type).state;
+      auto operation_state = id(${devicename}_operational_mode).current_option();
+      auto end_heating_unit = id(${devicename}_zone_2_end_heating_mode_emission_type).current_option();
+      auto end_cooling_unit = id(${devicename}_zone_2_end_cooling_mode_emission_type).current_option();
       if (operation_state == "Cool") {
         if (x < 5 and end_cooling_unit == "Fan Coil Unit") value = 5;
         if (x < 18 and end_cooling_unit != "Fan Coil Unit") value = 18;
@@ -4982,6 +5237,8 @@ number:
     min_value: 2.0
     max_value: 20.0
     step: 0.5
+
+
   ######################################## OUTSIDE IMPLEMENTATIONS ############################################      
   - platform: template
     name: "SM Restore DHW Heat after time"
@@ -5187,7 +5444,6 @@ text_sensor:
     icon: mdi:power
     entity_category: "diagnostic"
     lambda: |-
-      int fan_speed = id(${devicename}_fan_speed).state;
       if (id(${devicename}_operating_mode).state != "OFF") {
         if (id(${devicename}_load_output_run).state) {
           // The heat pump is on
@@ -5195,18 +5451,18 @@ text_sensor:
             return {"Defrosting"};
           } else if (id(${devicename}_load_output_sv1).state) {
             return {"DHW"};
-          } else if (id(${devicename}_power_heat_cool_control_zone1).state || id(${devicename}_power_heat_cool_control_zone2).state) {
-            // The heat pump is on for heating or cooling
-            if (id(${devicename}_status_bit_1_heating_mode_set_by_room_thermostat).state || id(${devicename}_operational_mode).state == "Heat") {
-              return {"Heating"};
-            } else if (id(${devicename}_status_bit_1_cooling_mode_set_by_room_thermostat).state || id(${devicename}_operational_mode).state == "Cool") {
-              return {"Cooling"};
-            } else {
-              // Return "Heating" if we cannot determine the correct state, for example when operational_mode is set to Auto
-              return {"Heating"};
-            }
           } else {
-            return {"Unknown - Nieznany stan..."};
+            // Return the state from "Operating Mode", which can be Cooling or Heating
+            return id(${devicename}_operating_mode).state;
+
+
+
+
+
+
+
+
+
           }
         } else {
           // The heat pumps operating mode is on (not OFF), but is not "Heating", "Cooling", or "DHW".
@@ -5216,8 +5472,43 @@ text_sensor:
         }
       } else {
         // The heat pump is off
-        return {"Inactive - Stan Bezczynności, Oczekiwanie"};
+        return {"Inactive"};
       }
+
+
+
+      
+      // int fan_speed = id(${devicename}_fan_speed).state;
+      // if (id(${devicename}_operating_mode).state != "OFF") {
+      //   if (id(${devicename}_load_output_run).state) {
+      //     // The heat pump is on
+      //    if (id(${devicename}_status_bit_1_defrosting).state) {
+      //      return {"Defrosting"};
+      //    } else if (id(${devicename}_load_output_sv1).state) {
+      //      return {"DHW"};
+      //    } else if (id(${devicename}_power_heat_cool_control_zone1).state || id(${devicename}_power_heat_cool_control_zone2).state) {
+      //      // The heat pump is on for heating or cooling
+      //      if (id(${devicename}_status_bit_1_heating_mode_set_by_room_thermostat).state || id(${devicename}_operational_mode).current_option() == "Heat") {
+      //        return {"Heating"};
+      //      } else if (id(${devicename}_status_bit_1_cooling_mode_set_by_room_thermostat).state || id(${devicename}_operational_mode).current_option() == "Cool") {
+      //        return {"Cooling"};
+      //      } else {
+      //        // Return "Heating" if we cannot determine the correct state, for example when operational_mode is set to Auto
+      //        return {"Heating"};
+      //      }
+      //    } else {
+      //      return {"Unknown - Nieznany stan..."};
+      //    }
+      //  } else {
+      //    // The heat pumps operating mode is on (not OFF), but is not "Heating", "Cooling", or "DHW".
+      //    // In this case the heat pump is Idle, which is for example the case when it is preparing for a DHW
+      //    // run or between "Heating" sessions
+      //    return {"Idle"};
+      //  }
+      //} else {
+      //  // The heat pump is off
+      //  return {"Inactive - Stan Bezczynności, Oczekiwanie"};
+      //}
 
 
        //if (id(${devicename}_load_output_run).state or id(${devicename}_load_output_water_pump_pump_i).state or fan_speed > 0) {
@@ -5617,17 +5908,21 @@ text_sensor:
     address: 0xc8
     response_size: 2
     raw_encode: HEXBYTES
+    force_new_range: true  # Registers 200-208 require separate batch per Modbus spec
     lambda: |-
-         int idx = item->offset;
-         std::string z = "";
-         uint16_t rawdata = (uint16_t(data[idx]) << 8) + uint16_t(data[idx + 1]);
-         // ESP_LOGI("Register 200", "The home appliance type is 0x%x", rawdata);
-         if ((rawdata >> 8) == 7) {
+      int idx = item->offset;
+      std::string z = "";
+      uint16_t rawdata = (uint16_t(data[idx]) << 8) + uint16_t(data[idx + 1]);
+      // ESP_LOGD("Register 200", "The home appliance product code is 0x%x rawdata ", rawdata);
+      if (((rawdata & 0x00F0) >> 4) == 4) {
+        z = "4";
+      } else 
+      if ((rawdata >> 8) == 7) {
            z = "Air to water heat pump";
-         } else {
-           z = std::to_string(data[idx]);
-         }
-         return {z};
+      } else {
+        z = std::to_string((rawdata & 0x00F0) >> 4);
+      }
+      return {z};
   # Register: 200 (Low byte, first 4 bits)
   - platform: modbus_controller
     modbus_controller_id: "${devicename}"
@@ -5874,7 +6169,7 @@ interval:
               //change from heat to cool don't stop heatpump
               ESP_LOGI("interval_delta", "nEnable Summer Mode -change behavior to COOLING. ow.month: %i, month_start_summer: %i, month_end_summer: %i comp month>=month_start: %s, id(esptime).now().month <= month_end_summer %s", id(esptime).now().month, ${month_start_summer}, ${month_end_summer}, (id(esptime).now().month >= ${month_start_summer})?"Yes":"No", id(esptime).now().month <= ${month_end_summer}?"Yes":"No");
               //change from heat to cool don't stop heatpump
-              if (id( ${devicename}_operational_mode).state != "Cool") {
+              if (id( ${devicename}_operational_mode).current_option() != "Cool") {
                 ESP_LOGE("intrval","Set Cool");
                 m1_mode.set_option("Cool");
                 m1_mode.perform();              // Apply changes
@@ -5890,7 +6185,7 @@ interval:
             if (id(esptime).now().month < ${month_start_summer} or id(esptime).now().month > ${month_end_summer} or (id(esptime).now().day_of_month > 16 and id(esptime).now().month == ${month_end_summer})) {
               //change parameters to winter mode -months 1-4 and 10-12
               ESP_LOGI("interval_delta", "Enable Winter Mode -change behavior to HEATING. now.month: %i, month_start_summer: %i, month_end_summer: %i compare month<month_start: %s, id(esptime).now().month > month_end_summer %s", id(esptime).now().month, ${month_start_summer}, ${month_end_summer}, (id(esptime).now().month < ${month_start_summer})?"Yes":"No", id(esptime).now().month > ${month_end_summer}?"Yes":"No");
-              if (id( ${devicename}_operational_mode).state != "Heat") {
+              if (id( ${devicename}_operational_mode).current_option() != "Heat") {
                 ESP_LOGE("intrval","Set Heat");
                 m1_mode.set_option("Heat");
                 m1_mode.perform();              // Apply changes
@@ -5908,9 +6203,9 @@ interval:
                 id(${devicename}_power_dhw_t5s).turn_on();
                 dhwstate = true;
                 // Set Heating to const 44deg on the day -there is chance that sun generate some energy -floor pump control temp for floor and second for recuperation radiant
-                if (id(${devicename}_operational_mode).state == "Heat") {
+                if (id(${devicename}_operational_mode).current_option() == "Heat") {
                   // Only in Heat mode
-                  //ESP_LOGI("Interval_dhw", "Status: %s = %s -> %s set temp day: %f", String(id(${devicename}_operational_mode).state).c_str(), "Heat", (id(${devicename}_operational_mode).state == "Heat")?"ON":"OFF", id(${devicename}_heating_to_temp_at_day).state);
+                  //ESP_LOGI("Interval_dhw", "Status: %s = %s -> %s set temp day: %f", String(id(${devicename}_operational_mode).current_option()).c_str(), "Heat", (id(${devicename}_operational_mode).current_option() == "Heat")?"ON":"OFF", id(${devicename}_heating_to_temp_at_day).state);
                   auto t1s_zone_1 = id(${devicename}_set_water_temperature_t1s_zone_1).make_call();
                   t1s_zone_1.set_value(id(${devicename}_heating_to_temp_at_day).state);
                   t1s_zone_1.perform();
@@ -5926,9 +6221,9 @@ interval:
                 ESP_LOGE("int1","DHW OFF for night");
                 dhwstate = false;
                 // Set Heating to const 32deg on the night -no sun to generate energy
-                if (id(${devicename}_operational_mode).state == "Heat") {
+                if (id(${devicename}_operational_mode).current_option() == "Heat") {
                   // Only in Heat mode
-                  //ESP_LOGI("Interval_dhw", "Status: %s = %s -> %s set temp night: %f", String(id(${devicename}_operational_mode).state).c_str(), "Heat", (id(${devicename}_operational_mode).state == "Heat")?"ON":"OFF", id(${devicename}_heating_to_temp_at_night).state);
+                  //ESP_LOGI("Interval_dhw", "Status: %s = %s -> %s set temp night: %f", String(id(${devicename}_operational_mode).current_option()).c_str(), "Heat", (id(${devicename}_operational_mode).current_option() == "Heat")?"ON":"OFF", id(${devicename}_heating_to_temp_at_night).state);
                   auto t1s_zone_1 = id(${devicename}_set_water_temperature_t1s_zone_1).make_call();
                   t1s_zone_1.set_value(id(${devicename}_heating_to_temp_at_night).state);
                   t1s_zone_1.perform();
@@ -6002,22 +6297,22 @@ interval:
               ESP_LOGI("interval_time_1h_2", "Set p_s_1_enable_water_heating");
             }
             // Emmision types update heat and cool end for zone 1 -i use buffer to cool so I need to set for cool "Fan Coil Unit" which enables temp range 5-25 degree
-            auto zone1_cooling_end_state = id(${devicename}_zone_1_end_cooling_mode_emission_type).state;
+            auto zone1_cooling_end_state = id(${devicename}_zone_1_end_cooling_mode_emission_type).current_option();
             if (zone1_cooling_end_state != "Fan Coil Unit") {
               auto zone1_cooling_end = id(${devicename}_zone_1_end_cooling_mode_emission_type).make_call();
               zone1_cooling_end.set_option("Fan Coil Unit");
               zone1_cooling_end.perform();
               essential_changed = true;
-              ESP_LOGI("interval_time_1h_2", "Set Zone 1 Cooling to Fan Coil Unit was: %s", zone1_cooling_end_state.c_str());
+              ESP_LOGI("interval_time_1h_2", "Set Zone 1 Cooling to Fan Coil Unit was: %s", zone1_cooling_end_state);
             }
             //#Radiator and Fan Coil Unit enables temp range 35 to 65degree i want below 35 ;)
-            auto zone1_heating_end_state = id(${devicename}_zone_1_end_heating_mode_emission_type).state;
+            auto zone1_heating_end_state = id(${devicename}_zone_1_end_heating_mode_emission_type).current_option();
             if (zone1_heating_end_state != "Underfloor Heating") {
               auto zone1_heating_end = id(${devicename}_zone_1_end_heating_mode_emission_type).make_call();
               zone1_heating_end.set_option("Underfloor Heating");
               zone1_heating_end.perform();
               essential_changed = true;
-              ESP_LOGI("interval_time_1h_2", "Set Zone 1 heating to Underfloor Heating was: %s", zone1_heating_end_state.c_str());
+              ESP_LOGI("interval_time_1h_2", "Set Zone 1 heating to Underfloor Heating was: %s", zone1_heating_end_state);
             }
             if (essential_changed) {
               delay(900);
@@ -6057,7 +6352,7 @@ interval:
   #           if (!id(esptime).is_failed()) {
   #             //calculate curve and set T1s
   #             //${devicename}_temperature_t1s_zone1      set_water_temperature_t1s_zone_1
-  #             auto operation_state = id(${devicename}_operational_mode).state;
+  #             auto operation_state = id(${devicename}_operational_mode).current_option();
   #             ESP_LOGI("interval_time_30min", "Setting temp for mode .%s. compare: %s", operation_state.c_str(), (operation_state == "Cool")?"YES":"NO");
 
   #             //calculae curve
