@@ -10,7 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 
 ## [8.0a] - 2025-11-22
 ### Changed:
-- 
+- reg limit values: 104 - 121, 135 - 137, 143 - 146, T1S DHW
+- add, "Water Temperature Delta", 
+- update active state
+
 ## [6.0.1a] - 2025-04-22
 ### Changed:
 - Add switch for enable heatpump only on low Electricity Cost (defined as variable in global H=high cost, L=low cost in Polish G12 tariff)
